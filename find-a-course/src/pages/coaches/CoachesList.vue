@@ -3,22 +3,24 @@
     FILTER
 </section>
 <section>
-    <div class="controls">
-        <button>Refresh</button>
-        <router-link to="/register">Register as Teacher</router-link>
-    </div>
-    <ul v-if="hasCoaches">
-        <CoachItem 
-            v-for="coach in filteredCoaches"
-            :key="coach.id"
-            :id="coach.id"
-            :first-name="coach.firstName"
-            :last-name="coach.lastName"
-            :rate="coach.hourlyRate"
-            :areas="coach.areas"> 
-        </CoachItem>
-    </ul>
-    <h3 v-else>No teachers found</h3>
+    <BaseCard>
+        <div class="controls">
+            <BaseButton mode="outline">Refresh</BaseButton>
+            <BaseButton link to="/register">Register as Teacher</BaseButton>
+        </div>
+        <ul v-if="hasCoaches">
+            <CoachItem 
+                v-for="coach in filteredCoaches"
+                :key="coach.id"
+                :id="coach.id"
+                :first-name="coach.firstName"
+                :last-name="coach.lastName"
+                :rate="coach.hourlyRate"
+                :areas="coach.areas"> 
+            </CoachItem>
+        </ul>
+        <h3 v-else>No teachers found</h3>
+    </BaseCard>
 </section>
 </template>
 
