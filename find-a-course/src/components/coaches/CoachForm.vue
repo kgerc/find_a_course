@@ -7,8 +7,8 @@
         </div>
         <div class="form-control" :class="{invalid: !lastName.isValid}">
             <label for="lastname">Lastname</label>
-            <input type="text" id="lastname" v-model.trim="lastName.value" @blur="clearValidity('lastname')"/>
-            <p v-if="!lastName.isValid">Firstname must not be empty</p>
+            <input type="text" id="lastname" v-model.trim="lastName.val" @blur="clearValidity('lastName')"/>
+            <p v-if="!lastName.isValid">Lastname must not be empty</p>
         </div>
         <div class="form-control" :class="{invalid: !description.isValid}">
             <label for="description">Description</label>
@@ -102,11 +102,11 @@
               return;
             }
               const formData = {
-                  first: this.firstName,
-                  last: this.lastName,
-                  desc: this.description,
-                  rate: this.rate,
-                  areas: this.areas
+                  first: this.firstName.val,
+                  last: this.lastName.val,
+                  desc: this.description.val,
+                  rate: this.rate.val,
+                  areas: this.areas.val
               };
               this.$emit('save-data', formData);
           }

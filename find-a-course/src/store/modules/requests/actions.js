@@ -4,7 +4,7 @@ export default {
             id: new Date().toISOString(),
             coachId: data.coachId,
             userEmail: data.email,
-            messge: data.message
+            message: data.message
         };
 
         context.commit('addRequest', newRequest);
