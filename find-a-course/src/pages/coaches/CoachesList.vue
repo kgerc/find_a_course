@@ -5,10 +5,13 @@
 <section>
     <BaseCard>
         <div class="controls">
-            <BaseButton mode="outline">Refresh</BaseButton>
-            <BaseButton v-if="!isCoach" link to="/register">Register as Teacher</BaseButton>
+            <BaseButton mode="outline" @click="loadCoaches">Refresh</BaseButton>
+            <BaseButton v-if="!isCoach && !isLoading" link to="/register">Register as Teacher</BaseButton>
         </div>
-        <ul v-if="hasCoaches">
+        <div v-if="isLoading"> 
+            <BaseSpinner> </BaseSpinner>
+        </div>
+        <ul v-else-if="hasCoaches">
             <CoachItem 
                 v-for="coach in filteredCoaches"
                 :key="coach.id"
@@ -34,6 +37,7 @@ import CoachFilter from '../../components/coaches/CoachFilter.vue';
         },
         data() {
             return{
+                isLoading: false,
                 activeFilters: {
                     frontend: true,
                     backend: true,
@@ -61,14 +65,23 @@ import CoachFilter from '../../components/coaches/CoachFilter.vue';
                 });
             },
             hasCoaches () {
-                return this.$store.getters['coaches/hasCoaches'];
+                return !this.isLoading && this.$store.getters['coaches/hasCoaches'];
             }
+        },
+        created() {
+            this.loadCoaches();
         },
         methods: {
             setFilters(updatedFilters){
                 this.activeFilters = updatedFilters;
+            },
+            async loadCoaches() {
+                this.isLoading = true;
+                await this.$store.dispatch('coaches/loadCoaches');
+                this.isLoading = false;
             }
-        }
+        },
+
     }
 </script>
 
