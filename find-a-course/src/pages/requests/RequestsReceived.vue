@@ -1,12 +1,18 @@
 const { computed } = require("vue");
 
 <template>
+    <BaseDialog :show="!!error" title="An error occured" @close="handleError">
+        <p>{{ error }}</p>
+    </BaseDialog>
     <section>
         <BaseCard>
             <Header>
                 <h2>Requests received</h2>
             </Header>
-            <ul v-if="hasRequests">
+            <div v-if="isLoading"> 
+                <BaseSpinner> </BaseSpinner>
+            </div>
+            <ul v-else-if="hasRequests && !isLoading">
                 <RequestItem v-for="req in receivedRequests" :key="req.id" :email="req.userEmail" :message="req.message"></RequestItem>
             </ul>
             <h3 v-else>You haven't received any requests yet!</h3>
@@ -17,8 +23,17 @@ const { computed } = require("vue");
 <script>
     import RequestItem from '../../components/requests/RequestItem.vue';
     export default{
+        data() {
+            return{
+                isLoading: false,
+                error: null
+            }
+        },
         components: {
             RequestItem
+        },
+        created() {
+            this.loadRequests();
         },
         computed: {
             receivedRequests() {
@@ -27,7 +42,21 @@ const { computed } = require("vue");
             hasRequests() {
                 return this.$store.getters['requests/hasRequests'];
             }
-        }
+        },
+        methods: {
+            async loadRequests() {
+                this.isLoading = true;
+                try {
+                    await this.$store.dispatch('requests/fetchRequests');                   
+                }catch (error) {
+                    this.error = error.message || 'Something went wrong!';
+                }
+                this.isLoading = false;
+            },
+            handleError() {
+                this.error = null;
+            }
+        },
     }
 </script>
 
