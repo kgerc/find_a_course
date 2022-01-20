@@ -1,6 +1,5 @@
-const { computed } = require("vue");
-
 <template>
+<div>
     <BaseDialog :show="!!error" title="An error occured" @close="handleError">
         <p>{{ error }}</p>
     </BaseDialog>
@@ -18,6 +17,7 @@ const { computed } = require("vue");
             <h3 v-else>You haven't received any requests yet!</h3>
         </BaseCard>
     </section>
+</div>
 </template>
 
 <script>

@@ -1,8 +1,10 @@
 <template>
-    <BaseCard>
-        <h2>Register as a teacher now!</h2>
-        <CoachForm @save-data="saveData"></CoachForm>
-    </BaseCard>
+    <section>
+        <BaseCard>
+            <h2>Register as a teacher now!</h2>
+            <CoachForm @save-data="saveData"></CoachForm>
+        </BaseCard>
+    </section>
 </template>
 
 <script>

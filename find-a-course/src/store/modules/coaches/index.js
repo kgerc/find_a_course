@@ -5,7 +5,8 @@ export default {
     namespaced: true,
     state(){
         return {
-            coaches: [
+          lastFetch: null,
+          coaches: [
                 {
                   id: 'c1',
                   firstName: 'Maximilian',
