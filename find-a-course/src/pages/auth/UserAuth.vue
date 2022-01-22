@@ -1,6 +1,13 @@
 <template>
+    <div>
+        <BaseDialog :show="!!error" title="An error occured"  @close="handleError">
+            <p>{{error}}</p>
+        </BaseDialog>
+        <BaseDialog :show="isLoading" title="Authenticating..." fixed>
+            <BaseSpinner></BaseSpinner>
+        </BaseDialog>
         <BaseCard>
-            <form @submit="submitForm">
+            <form @submit.prevent="submitForm">
                 <div class="form-control">
                     <label for="email">E-mail</label>
                     <input type="email" id="email" v-model.trim="email"/>
@@ -14,6 +21,7 @@
                 <BaseButton type="button" mode="flat" @click="switchAuthMode">{{switchModeButtonCaption}}</BaseButton>
             </form>
         </BaseCard>
+    </div>
 </template>
 
 <script>
@@ -23,7 +31,9 @@
                 email: '',
                 password: '',
                 formIsValid: true,
-                mode: 'login'
+                mode: 'login',
+                isLoading: false,
+                error: null
             };
         },
         computed: {
@@ -43,7 +53,7 @@
             },
         },
         methods: {
-            submitForm() {
+            async submitForm() {
                 this.formIsValid = true;
                 if(this.email === '' ||
                  !this.email.includes('@') ||
@@ -52,22 +62,35 @@
                       console.log("ERR");
                       return;
                 }
-                  if (this.mode === 'login'){
-                      console.log("not implemented yet");
-                  } else {
-                      this.$store.dispatch('signup', {
-                        email: this.email,
-                        password: this.password
-                      });
-                  }
+                this.isLoading = true;
+                const actionPayload = {
+                    email: this.email,
+                    password: this.password,
+                };
+                try {
+                    if (this.mode === 'login'){
+                        await this.$store.dispatch('login', actionPayload);
+                    } else {
+                        await this.$store.dispatch('signup', actionPayload);
+                    }
+                    const redirectUrl = '/' + (this.$route.query.redirect || 'coaches');
+                    this.$router.replace(redirectUrl);
+                }catch(err){
+                    this.error = err.message || 'Failed to authenticate. Check your login data';
+                }
+
+                this.isLoading = false;
             },
             switchAuthMode() {
                 if(this.mode === 'login'){
-                    this.mode = 'singup';
+                    this.mode = 'signup';
                 }else {
                     this.mode = 'login';
                 }
             },
+            handleError() {
+                this.error = null;
+            }
         }
     }
 </script>
