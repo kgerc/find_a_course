@@ -19,7 +19,7 @@ const router = createRouter({
       component: CoachDetail,
       props: true,
       children: [
-        { path: 'contact', component: ContactCoach } // /coaches/c1/contact
+        { path: 'contact', component: ContactCoach }
       ]
     },
     { path: '/register', component: CoachRegistation, meta: { requiresAuth: true } },
@@ -31,7 +31,6 @@ const router = createRouter({
 
 router.beforeEach(function(to, _, next) {
   if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
-    console.log("HEREEE");
     next('/auth');
   } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
     next('/coaches');
