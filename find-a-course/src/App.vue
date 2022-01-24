@@ -1,11 +1,16 @@
 <template>
 <div>
-  <Header></Header>
-  <router-view v-slot="slotProps">
-    <transition name="route" mode="out-in">
-      <component :is="slotProps.Component"> </component>
-    </transition>
-  </router-view>
+<head>
+  <meta name=viewport content="width=device-width,initial-scale=1">
+</head>
+  <div>
+    <Header></Header>
+    <router-view v-slot="slotProps">
+      <transition name="route" mode="out-in">
+        <component :is="slotProps.Component"> </component>
+      </transition>
+    </router-view>
+  </div>
 </div>
 </template>
 
