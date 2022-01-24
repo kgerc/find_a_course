@@ -6,11 +6,11 @@
             <h3>${{ rate }}/hour</h3>
         </BaseCard>
     </section>
-    <section>
+    <section id="section2">
         <BaseCard>
             <header>
                 <h2>Interested? Reach out now!</h2>
-                <BaseButton link :to="contactLink">Contact</BaseButton>
+                <BaseButton link :to="contactLink" id="contactBtn">Contact</BaseButton>
             </header>
             <router-view></router-view>
         </BaseCard>
@@ -54,3 +54,13 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+
+
+@media screen and (max-width: 500px){
+#contactBtn{  
+    display: none;
+}
+}
+</style>

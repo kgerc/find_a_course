@@ -6,8 +6,8 @@
             <BaseBadge v-for="area in areas" :key="area" :type="area" :title="area"></BaseBadge>
         </div>
         <div class="actions">
-            <BaseButton mode="outline" link :to="coachContactLink">Contact</BaseButton>
-            <BaseButton link :to="coachDetailsLink">View Details</BaseButton>
+            <BaseButton mode="outline" link :to="coachContactLink" id="contactButton">Contact</BaseButton>
+            <BaseButton link :to="coachDetailsLink" id="detailsButton">View Details</BaseButton>
         </div>
     </li>
 </template>
@@ -53,5 +53,14 @@ div {
 .actions {
   display: flex;
   justify-content: flex-end;
+}
+
+@media screen and (max-width: 500px){
+#detailsButton {
+line-height: 14px;
+}
+#contactButton {
+line-height: 20px;
+}
 }
 </style>

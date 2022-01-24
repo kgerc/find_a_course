@@ -10,7 +10,7 @@
         </div>
         <p class="errors" v-if="!formIsValid">Please enter a valid email and non-empty message</p>
         <div class="actions">
-            <BaseButton>Send Message</BaseButton>
+            <BaseButton id="send">Send Message</BaseButton>
         </div>
     </form>
 </template>
@@ -83,5 +83,12 @@ textarea:focus {
 
 .actions {
   text-align: center;
+}
+
+@media screen and (max-width: 500px){
+#send{  
+  line-height: 14px;
+  text-align:center; 
+}
 }
 </style>

@@ -10,8 +10,8 @@
         <BaseCard>
             <div class="controls">
                 <BaseButton mode="outline" @click="loadCoaches(true)">Refresh</BaseButton>
-                <BaseButton link to="/auth?redirect=register" v-if="!isLoggedIn">Login to Register as Teacher</BaseButton>
-                <BaseButton v-if="isLoggedIn && !isCoach && !isLoading" link to="/register">Register as Teacher</BaseButton>
+                <BaseButton link to="/auth?redirect=register" v-if="!isLoggedIn" id="login1">Login to Register as Teacher</BaseButton>
+                <BaseButton v-if="isLoggedIn && !isCoach && !isLoading" link to="/register" id="login2">Register as Teacher</BaseButton>
             </div>
             <div v-if="isLoading"> 
                 <BaseSpinner> </BaseSpinner>
@@ -112,5 +112,21 @@ ul {
 .controls {
   display: flex;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 500px){
+#login1{  
+  text-indent: -9999px;
+  line-height: 0; 
+}
+#login1::after {
+text-indent: 0;
+line-height: 14px;
+ display: block;
+content:'Login to register'
+}
+#login2 {
+line-height: 20px;
+}
 }
 </style>

@@ -11,11 +11,11 @@
         <li v-if="isLoggedIn">
           <router-link to="/requests">Requests</router-link>
         </li>
-        <li v-else>
+        <li v-else id="login">
           <router-link to="/auth">Login</router-link>
         </li>
         <li v-if="isLoggedIn">
-          <BaseButton @click="logout">Logout</BaseButton>
+          <BaseButton @click="logout" id="logoutButton">Logout</BaseButton>
         </li>
       </ul>
     </nav>
@@ -96,5 +96,30 @@ header ul {
 
 li {
   margin: 0 0.5rem;
+}
+
+@media screen and (max-width: 500px){
+  h1 {
+    width:10px;
+    font-size: 20px;
+  }
+  li {
+    width:8px;
+    margin-right:60px;
+    font-size: 14px;
+  }
+  #login {
+    margin-left: 35px;
+    height:200%;
+  }
+  #logoutButton {
+    font-size: 15px;
+    background: #3d008d;
+  }
+  a:active,
+  a:hover,
+  a.router-link-active {
+  border: none;
+  }
 }
 </style>
